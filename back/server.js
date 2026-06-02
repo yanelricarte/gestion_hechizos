@@ -12,12 +12,16 @@ const app = express();
 app.use(cors()); // Permite solicitudes desde diferentes orígenes
 app.use(express.json()); 
 
-// Configuración de la sesión 
+// Configuración de la sesión
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true, 
-  cookie: { secure: false }
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax'
+  }
 }));
 
 
