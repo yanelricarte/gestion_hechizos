@@ -1,68 +1,79 @@
-# Gestión de Hechizos
+# 🧙 Gestión de Hechizos
 
-Este proyecto es una aplicación web para la gestión de hechizos, desarrollada utilizando React para el frontend y Node.js con Express para el backend. La aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre hechizos, utilizando MongoDB como base de datos.
+Aplicación web full-stack para la gestión de hechizos. Permite realizar operaciones CRUD (crear, leer, actualizar y eliminar) sobre una colección de hechizos, con frontend en React y backend en Node.js + Express sobre MongoDB.
 
-## Tecnologías Utilizadas
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-- **Frontend**: React, React Router, CSS
-- **Backend**: Node.js, Express
-- **Base de Datos**: MongoDB, Mongoose
+## Tecnologías
 
-## Estructura del Proyecto
+- **Frontend:** React, React Router, Vite, CSS
+- **Backend:** Node.js, Express
+- **Base de datos:** MongoDB, Mongoose
 
-- **Frontend**: Código fuente en el directorio `front/`
-- **Backend**: Código fuente en el directorio `back/`
+## Estructura del proyecto
 
-## Instalación
+```
+.
+├── back/    # API REST (Node + Express + Mongoose)
+└── front/   # Cliente (React + Vite)
+```
+
+## Requisitos previos
+
+- Node.js 18 o superior
+- Una instancia de MongoDB (local o en la nube)
+
+## Instalación y uso
 
 ### Backend
 
-1. Navega al directorio `back/`.
+```bash
+cd back
+npm install
+```
 
-    cd back
+Creá un archivo `.env` en `back/` con la cadena de conexión a tu base de datos:
 
-2. Instala las dependencias del backend.
+```env
+MONGODB_URI=mongodb://localhost:27017/gestion-hechizos
+```
 
-    npm install
+Iniciá el servidor:
 
-3. Configura las variables de entorno. Crea un archivo `.env` en el directorio `back/` y agrega la siguiente línea:
-
-    MONGODB_URI=mongodb://localhost:27017/mi-base-de-datos
-
-    Asegúrate de reemplazar `mi-base-de-datos` con el nombre de tu base de datos en MongoDB.
-
-4. Inicia el servidor del backend.
-
-    npm start
-
+```bash
+npm start
+```
 
 ### Frontend
 
-1. Navega al directorio `front/`.
-
-    cd frontend
-
-2. Instala las dependencias del frontend.
-
-    npm install
-
-3. Inicia el servidor de desarrollo del frontend.
-
-    npm start
+```bash
+cd front
+npm install
+npm run dev
+```
 
 ## Funcionalidades
 
-- **Lista de Hechizos**: Visualiza todos los hechizos disponibles.
-- **Detalles del Hechizo**: Consulta los detalles de un hechizo específico.
-- **Crear Hechizo**: Añade un nuevo hechizo a la base de datos.
-- **Editar Hechizo**: Modifica los detalles de un hechizo existente.
-- **Eliminar Hechizo**: Elimina un hechizo de la base de datos.
+- **Lista de hechizos:** visualiza todos los hechizos disponibles.
+- **Detalle:** consulta la información de un hechizo específico.
+- **Crear:** añade un nuevo hechizo.
+- **Editar:** modifica un hechizo existente.
+- **Eliminar:** quita un hechizo de la base de datos.
 
-## Endpoints del API
+## Endpoints de la API
 
-- `GET /api/hechizos` - Obtiene todos los hechizos.
-- `GET /api/hechizos/:id` - Obtiene un hechizo por ID.
-- `POST /api/hechizos` - Crea un nuevo hechizo.
-- `PUT /api/hechizos/:id` - Actualiza un hechizo por ID.
-- `DELETE /api/hechizos/:id` - Elimina un hechizo por ID.
+| Método | Ruta | Descripción |
+|---|---|---|
+| `GET` | `/api/hechizos` | Lista todos los hechizos |
+| `GET` | `/api/hechizos/:id` | Obtiene un hechizo por ID |
+| `POST` | `/api/hechizos` | Crea un nuevo hechizo |
+| `PUT` | `/api/hechizos/:id` | Actualiza un hechizo por ID |
+| `DELETE` | `/api/hechizos/:id` | Elimina un hechizo por ID |
 
+## Licencia
+
+Distribuido bajo licencia MIT. Ver [`LICENSE`](LICENSE).

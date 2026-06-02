@@ -1,0 +1,25 @@
+# Dependencias
+node_modules/
+back/node_modules/
+front/node_modules/
+
+# Variables de entorno
+.env
+*.env
+back/.env
+front/.env
+
+# Builds
+dist/
+build/
+front/dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operativo / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
