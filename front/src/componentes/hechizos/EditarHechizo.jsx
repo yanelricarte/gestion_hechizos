@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import api from '../api/api';
 import './hechizos.css';
 
 const EditarHechizo = () => {
@@ -13,8 +14,7 @@ const EditarHechizo = () => {
   useEffect(() => {
     const fetchHechizo = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/hechizos/${id}`);
-        const data = await response.json();
+        const { data } = await api.get(`/hechizos/${id}`);
         setHechizo(data);
         setNombre(data.nombre);
         setDescripcion(data.descripcion);
@@ -30,16 +30,8 @@ const EditarHechizo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/api/hechizos/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, descripcion, nivel })
-      });
-      if (response.ok) {
-        navigate('/hechizos');
-      } else {
-        console.error('Error al actualizar hechizo');
-      }
+      await api.put(`/hechizos/${id}`, { nombre, descripcion, nivel: Number(nivel) });
+      navigate('/hechizos');
     } catch (error) {
       console.error('Error al actualizar hechizo:', error);
     }

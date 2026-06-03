@@ -9,12 +9,16 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors()); // Permite solicitudes desde diferentes orígenes
-app.use(express.json()); 
+// CORS con credentials: necesario para que el navegador envíe la cookie de sesión.
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:10000',
+  credentials: true,
+}));
+app.use(express.json());
 
 // Configuración de la sesión
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || 'dev-only-secret-cambiar-en-produccion',
   resave: false,
   saveUninitialized: false,
   cookie: {

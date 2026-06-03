@@ -1,25 +1,34 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import api from './api';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    // Cargar el estado de autenticación desde localStorage
-    return localStorage.getItem('isAuthenticated') === 'true';
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const login = () => {
-    setIsAuthenticated(true);
-    localStorage.setItem('isAuthenticated', 'true'); // Guardar en localStorage
-  };
+  // La fuente de verdad es la sesión del backend (cookie), no localStorage
+  // (que el usuario podría falsificar). Se verifica al montar.
+  useEffect(() => {
+    api.get('/users/protegida')
+      .then(() => setIsAuthenticated(true))
+      .catch(() => setIsAuthenticated(false))
+      .finally(() => setLoading(false));
+  }, []);
 
-  const logout = () => {
+  const login = () => setIsAuthenticated(true);
+
+  const logout = async () => {
+    try {
+      await api.get('/users/logout');
+    } catch {
+      // aunque falle el server, limpiamos el estado local
+    }
     setIsAuthenticated(false);
-    localStorage.removeItem('isAuthenticated'); // Eliminar de localStorage
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

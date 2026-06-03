@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import api from '../api/api';
 import './hechizos.css';
 
 const DetalleHechizo = () => {
@@ -10,8 +11,7 @@ const DetalleHechizo = () => {
   useEffect(() => {
     const fetchHechizo = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/hechizos/${id}`);
-        const data = await response.json();
+        const { data } = await api.get(`/hechizos/${id}`);
         setHechizo(data);
       } catch (error) {
         console.error('Error al obtener hechizo:', error);
@@ -23,14 +23,8 @@ const DetalleHechizo = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/hechizos/${id}`, {
-        method: 'DELETE',
-      });
-      if (response.ok) {
-        navigate('/hechizos');
-      } else {
-        console.error('Error al eliminar hechizo');
-      }
+      await api.delete(`/hechizos/${id}`);
+      navigate('/hechizos');
     } catch (error) {
       console.error('Error al eliminar hechizo:', error);
     }

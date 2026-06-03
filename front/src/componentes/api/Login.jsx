@@ -17,7 +17,7 @@ const Login = () => {
       login(); // Llama a login después de un inicio de sesión exitoso
       navigate('/protegida'); // Redirige a la ruta protegida
     } catch (error) {
-      alert('Error en el inicio de sesión: ' + error.response.data);
+      alert('Error en el inicio de sesión: ' + (error.response?.data ?? 'Error de conexión'));
     }
   };
 

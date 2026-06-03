@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { Link } from 'react-router-dom';
 
 const ListaHechizos = () => {
@@ -8,7 +8,7 @@ const ListaHechizos = () => {
   useEffect(() => {
     const fetchHechizos = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/hechizos');
+        const response = await api.get('/hechizos');
         setHechizos(response.data);
       } catch (error) {
         console.error('Error al obtener los hechizos:', error);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 
 const CrearHechizo = () => {
@@ -11,8 +11,8 @@ const CrearHechizo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const nuevoHechizo = { nombre, descripcion, nivel };
-      await axios.post('http://localhost:5000/api/hechizos', nuevoHechizo);
+      const nuevoHechizo = { nombre, descripcion, nivel: Number(nivel) };
+      await api.post('/hechizos', nuevoHechizo);
       navigate('/hechizos');
     } catch (error) {
       console.error('Error al crear el hechizo:', error);
@@ -45,7 +45,7 @@ const CrearHechizo = () => {
         <div className="form-group">
           <label htmlFor="nivel">Nivel</label>
           <input
-            type="text"
+            type="number"
             id="nivel"
             value={nivel}
             onChange={(e) => setNivel(e.target.value)}

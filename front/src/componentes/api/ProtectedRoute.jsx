@@ -1,12 +1,10 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from './AuthContext'; 
+import { useAuth } from './AuthContext';
 
 const ProtectedRoute = ({ element }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
-  if (isAuthenticated) {
-    //alert('Sesión iniciada');
-  }
+  if (loading) return <p>Cargando...</p>;
 
   return isAuthenticated ? element : <Navigate to="/login" />;
 };
